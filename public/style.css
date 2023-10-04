@@ -43,7 +43,7 @@ nav.navbar a.nav-link {
 
 /* Blog Post Styles */
 .blog-post {
-    background-color: #fff;
+    background-color: rgb(128, 128, 128);
     padding: 20px;
     margin: 20px 0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -56,10 +56,11 @@ nav.navbar a.nav-link {
 
 /* Portfolio Styles */
 .project {
-    background-color: #fff;
+    background-color: gray;
     padding: 20px;
     margin: 20px 0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    
 }
 
 .project h3 {
@@ -104,6 +105,7 @@ button[type="submit"] {
     font-weight: bold;
 }
 
+/* Style the submit button */
 button[type="submit"] {
     background-color: #007bff;
     color: #fff;
@@ -111,6 +113,7 @@ button[type="submit"] {
     cursor: pointer;
 }
 
+/* Style the submit button on hover */
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
@@ -137,33 +140,4 @@ footer {
     .navbar-toggler-icon {
         color: #007bff;
     }
-}
-
-/* Input and Button Styles */
-input[type="text"],
-input[type="email"],
-textarea,
-button[type="submit"] {
-    width: 100%;
-    padding: 8px; /* Reduce padding to make elements more compact */
-    margin-bottom: 10px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    background-color: transparent;
-    color: #007bff;
-    font-weight: bold;
-}
-
-/* Style the submit button */
-button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 10px 20px; /* Increase padding slightly for the button */
-}
-
-/* Style the submit button on hover */
-button[type="submit"]:hover {
-    background-color: #0056b3;
 }
