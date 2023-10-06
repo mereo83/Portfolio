@@ -1,58 +1,65 @@
-try {
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-
-            window.scrollTo({
-                top: targetElement.offsetTop - 50, // Adjust for header height
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Form submission handling
-    document.querySelector('form').addEventListener('submit', function (e) {
+*// Smooth scrolling for navigation links
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
         e.preventDefault();
 
-        const formData = new FormData(this);
+        const targetId = this.getAttribute('href').substring(1);
+        const scrollTarget = document.getElementById(targetId);
 
-        fetch('/contact', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            alert(data); // Display a simple alert indicating success or error
-            this.reset(); // Clear the form
-        })
-        .catch(error => {
-            console.error(error);
-            alert('An error occurred. Please try again later.');
+        window.scrollTo({
+            top: scrollTarget.offsetTop - 50, // Adjust for header height
+            behavior: 'smooth'
         });
     });
-} catch (error) {
-    console.error('An error occurred in the JavaScript code:', error);
-    alert('An error occurred. Please try again later.');
+});
+
+// Form submission handling
+document.querySelector('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const contactForm = document.querySelector('form');
+    const formData = new FormData(contactForm);
+    const successMessage = document.getElementById('success-message');
+
+    try {
+        const response = await fetch('/contact', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert('Message sent successfully.');
+            contactForm.reset(); // Clear the form
+            successMessage.style.display = 'block'; // Display success message
+        } else {
+            throw new Error('Server error');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('An error occurred. Please try again later.');
+    }
+});
+
+// JavaScript to toggle the "Read More" content
+function toggleReadMore() {
+    const readMoreContent = document.getElementById("read-more-content");
+    const blogPost4 = document.getElementById("blog-post-4");
+
+    if (readMoreContent.style.display === "none" || readMoreContent.style.display === "") {
+        readMoreContent.style.display = "block";
+        blogPost4.scrollIntoView({ behavior: "smooth" }); // Scroll to the expanded content
+    } else {
+        readMoreContent.style.display = "none";
+    }
 }
 
-// script.js
-
-// Add this script to show the success message after form submission
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form');
+// Additional script to show success message after form submission
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.querySelector('form');
     const successMessage = document.getElementById('success-message');
-  
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault(); // Prevent the form from submitting normally
-  
-      // You can perform additional actions here, such as sending data to the server
-  
-      // Display the success message
-      successMessage.style.display = 'block';
+
+    contactForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        successMessage.style.display = 'none'; // Hide success message initially
     });
-  });
-  
+});
