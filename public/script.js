@@ -1,4 +1,4 @@
-*// Smooth scrolling for navigation links
+// Smooth scrolling for navigation links
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -14,10 +14,10 @@ document.querySelectorAll('nav a').forEach(anchor => {
 });
 
 // Form submission handling
-document.querySelector('form').addEventListener('submit', async (e) => {
+document.querySelector('#contact-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const contactForm = document.querySelector('form');
+    const contactForm = document.querySelector('#contact-form');
     const formData = new FormData(contactForm);
     const successMessage = document.getElementById('success-message');
 
@@ -41,25 +41,21 @@ document.querySelector('form').addEventListener('submit', async (e) => {
 });
 
 // JavaScript to toggle the "Read More" content
-function toggleReadMore() {
-    const readMoreContent = document.getElementById("read-more-content");
-    const blogPost4 = document.getElementById("blog-post-4");
+document.addEventListener('DOMContentLoaded', function () {
+    const readMoreButton = document.getElementById("read-more-button");
+    const readLessButton = document.getElementById("read-less-button");
+    const aiToolsPartial = document.getElementById("ai-tools-partial");
+    const aiToolsFull = document.getElementById("ai-tools-full");
 
-    if (readMoreContent.style.display === "none" || readMoreContent.style.display === "") {
-        readMoreContent.style.display = "block";
-        blogPost4.scrollIntoView({ behavior: "smooth" }); // Scroll to the expanded content
-    } else {
-        readMoreContent.style.display = "none";
-    }
-}
+    readMoreButton.addEventListener('click', function () {
+        aiToolsPartial.style.display = "none";
+        aiToolsFull.style.display = "block";
+    });
 
-// Additional script to show success message after form submission
-document.addEventListener('DOMContentLoaded', () => {
-    const contactForm = document.querySelector('form');
-    const successMessage = document.getElementById('success-message');
-
-    contactForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        successMessage.style.display = 'none'; // Hide success message initially
+    readLessButton.addEventListener('click', function () {
+        aiToolsFull.style.display = "none";
+        aiToolsPartial.style.display = "block";
     });
 });
+
+
