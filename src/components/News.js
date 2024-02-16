@@ -11,11 +11,16 @@ function News() {
       const response = await axios.get(
         'https://newsapi.org/v2/top-headlines?country=us&apiKey=3cc3b998ef6a41c9997a7b4976f782b1'
       );
-      setNews(response.data.articles);
-      setError(null); // Reset error state if fetching is successful
+
+      if (response.data.status === 'ok') {
+        setNews(response.data.articles);
+        setError(null);
+      } else {
+        setError('Error fetching news: ' + response.data.message);
+      }
     } catch (error) {
       console.error('Error fetching news:', error);
-      setError('Error fetching news. Please try again later.'); // Set error state if fetching fails
+      setError('Error fetching news. Please try again later.');
     }
   };
 
