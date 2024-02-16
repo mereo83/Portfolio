@@ -9,6 +9,7 @@ import SkillsSection from './components/SkillsSection';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import News from './components/News';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Navbar className="Navbar" />
         <main className="MainContent">
           <Routes>
+            <Route path='/Home' element={<Home/>}/>
             <Route path="/News" element={<News />} />
             <Route path="/blog" element={<BlogSection />} />
             <Route path="/portfolio" element={<PortfolioSection />} />

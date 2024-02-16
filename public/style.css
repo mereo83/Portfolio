@@ -7,7 +7,7 @@
 
 /* Define common styles for text and fonts */
 body {
-    background-image: url('../assets/pexels-sora-shimazaki-5926393.jpg'); /* Path to your background image */
+    background-image: url('../assets/ferdinand-stohr-NFs6dRTBgaM-unsplash.jpg'); /* Path to your background image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -16,8 +16,22 @@ body {
     line-height: 1.6;
 }
 
+.news-list {
+    list-style: none;
+    padding: 0;
+  }
+  .news-background {
+    background-color: none; /* Set the desired background color */
+  }
+
+  .news-item {
+    color: white; /* Change color as needed */
+    font-size: 18px; /* Change font size as needed */
+  }
+
 /* Header Styles */
 header {
+    background-image: url('../assets/ferdinand-stohr-NFs6dRTBgaM-unsplash.jpg'); /* Path to your background image */
     background-color: #4caf50;
     color: #fff;
     text-align: center;
