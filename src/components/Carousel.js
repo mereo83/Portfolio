@@ -8,7 +8,7 @@ const Carousel = () => {
   ];
 
   return (
-    <div id="carouselExample" className="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExample" className="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
       <div className="carousel-inner">
         {images.map((image, index) => (
           <div key={index} className={`carousel-item${index === 0 ? ' active' : ''}`}>
@@ -24,7 +24,6 @@ const Carousel = () => {
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Next</span>
       </button>
-      
     </div>
   );
 };
