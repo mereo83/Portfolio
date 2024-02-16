@@ -19,7 +19,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="mt-4">
+    <section id="contact" className="mt-4 contact-section"> {/* Add contact-section class */}
       <h2>Contact</h2>
       <p>If you'd like to get in touch, please use the contact form below:</p>
       <form onSubmit={handleSubmit}>
