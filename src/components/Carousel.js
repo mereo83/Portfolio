@@ -3,7 +3,7 @@ import React from 'react';
 const Carousel = () => {
   const images = [
     'person-front-computer-working-html.jpg',
-    'pexels-antonio-batinic-4164418.jpg',
+    'person-front-computer-working-html.jpg',
     'clement-helardot-95YRwf6CNw8-unsplash.jpg'
   ];
 
@@ -24,6 +24,7 @@ const Carousel = () => {
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Next</span>
       </button>
+      
     </div>
   );
 };
