@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique keys
 
 function News() {
   const [news, setNews] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -10,8 +12,10 @@ function News() {
         'https://newsapi.org/v2/top-headlines?country=us&apiKey=3cc3b998ef6a41c9997a7b4976f782b1'
       );
       setNews(response.data.articles);
+      setError(null); // Reset error state if fetching is successful
     } catch (error) {
       console.error('Error fetching news:', error);
+      setError('Error fetching news. Please try again later.'); // Set error state if fetching fails
     }
   };
 
@@ -27,18 +31,24 @@ function News() {
     return () => clearInterval(timer); // Clear timer when component unmounts
   }, []);
 
-  const handleFetchData = () => {
-    fetchData(); // Call fetchData function when button is clicked
+  const handleFetchData = async () => {
+    try {
+      await fetchData(); // Call fetchData function when button is clicked
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      setError('Error fetching news. Please try again later.'); // Set error state if fetching fails
+    }
   };
 
   return (
     <div className="news-background">
       <h2>News</h2>
+      {error && <p>{error}</p>} {/* Display error message if there's an error */}
       <button onClick={handleFetchData}>Fetch Latest News</button> {/* Button to fetch data */}
       <hr />
       <div className="news-container">
-        {news.map((article, index) => (
-          <div key={index} className="news-item">
+        {news.map((article) => (
+          <div key={uuidv4()} className="news-item"> {/* Use uuid to generate unique keys */}
             <div>
               <h3>{article.title}</h3>
               <p>{article.description}</p>
