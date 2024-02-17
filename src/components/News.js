@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique keys
+import { v4 as uuidv4 } from 'uuid';
 
 function News() {
   const [news, setNews] = useState([]);
@@ -31,58 +31,54 @@ function News() {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      await fetchData('general', setNews); // Fetch general news when the component mounts
-      await fetchData('sports', setSportsNews); // Fetch sports news when the component mounts
+      await fetchData('general', setNews);
+      await fetchData('sports', setSportsNews);
     };
 
     fetchInitialData();
 
     const timer = setInterval(() => {
-      fetchData('general', setNews); // Set up timer to fetch general news every 2 minutes
-      fetchData('sports', setSportsNews); // Set up timer to fetch sports news every 2 minutes
+      fetchData('general', setNews);
+      fetchData('sports', setSportsNews);
     }, 120000);
 
-    return () => clearInterval(timer); // Clear timer when component unmounts
+    return () => clearInterval(timer);
   }, []);
 
   const handleFetchData = async (category, setState) => {
-    await fetchData(category, setState); // Call fetchData function when button is clicked
+    await fetchData(category, setState);
   };
 
   return (
     <div className="news-background">
       <div className="news-section">
         <h2>General News</h2>
-        {error && <p>{error}</p>} {/* Display error message if there's an error */}
-        {loading && <p>Loading...</p>} {/* Display loading message while fetching data */}
-        <button onClick={() => handleFetchData('general', setNews)}>Fetch Latest General News</button> {/* Button to fetch general news */}
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        <button onClick={() => handleFetchData('general', setNews)}>Fetch Latest General News</button>
         <hr />
         <div className="news-container">
           {news.map((article) => (
             <div key={uuidv4()} className="news-item">
-              <div>
-                <h3>{article.title}</h3>
-                <p>{article.description}</p>
-                {/* Render other details as needed */}
-              </div>
+              <h3>{article.title}</h3>
+              <p>{article.description}</p>
+              <a href={article.url} target="_blank" rel="noopener noreferrer">Read more</a>
             </div>
           ))}
         </div>
       </div>
       <div className="news-section">
         <h2>Sports News</h2>
-        {error && <p>{error}</p>} {/* Display error message if there's an error */}
-        {loading && <p>Loading...</p>} {/* Display loading message while fetching data */}
-        <button onClick={() => handleFetchData('sports', setSportsNews)}>Fetch Latest Sports News</button> {/* Button to fetch sports news */}
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        <button onClick={() => handleFetchData('sports', setSportsNews)}>Fetch Latest Sports News</button>
         <hr />
         <div className="news-container">
           {sportsNews.map((article) => (
             <div key={uuidv4()} className="news-item">
-              <div>
-                <h3>{article.title}</h3>
-                <p>{article.description}</p>
-                {/* Render other details as needed */}
-              </div>
+              <h3>{article.title}</h3>
+              <p>{article.description}</p>
+              <a href={article.url} target="_blank" rel="noopener noreferrer">Read more</a>
             </div>
           ))}
         </div>
