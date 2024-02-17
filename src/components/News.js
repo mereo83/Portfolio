@@ -6,8 +6,10 @@ function News() {
   const [news, setNews] = useState([]);
   const [sportsNews, setSportsNews] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async (category, setState) => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=3cc3b998ef6a41c9997a7b4976f782b1`
@@ -22,6 +24,8 @@ function News() {
     } catch (error) {
       console.error(`Error fetching ${category} news:`, error);
       setError(`Error fetching ${category} news. Please try again later.`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,12 +46,7 @@ function News() {
   }, []);
 
   const handleFetchData = async (category, setState) => {
-    try {
-      await fetchData(category, setState); // Call fetchData function when button is clicked
-    } catch (error) {
-      console.error(`Error fetching ${category} news:`, error);
-      setError(`Error fetching ${category} news. Please try again later.`); // Set error state if fetching fails
-    }
+    await fetchData(category, setState); // Call fetchData function when button is clicked
   };
 
   return (
@@ -55,6 +54,7 @@ function News() {
       <div className="news-section">
         <h2>General News</h2>
         {error && <p>{error}</p>} {/* Display error message if there's an error */}
+        {loading && <p>Loading...</p>} {/* Display loading message while fetching data */}
         <button onClick={() => handleFetchData('general', setNews)}>Fetch Latest General News</button> {/* Button to fetch general news */}
         <hr />
         <div className="news-container">
@@ -72,6 +72,7 @@ function News() {
       <div className="news-section">
         <h2>Sports News</h2>
         {error && <p>{error}</p>} {/* Display error message if there's an error */}
+        {loading && <p>Loading...</p>} {/* Display loading message while fetching data */}
         <button onClick={() => handleFetchData('sports', setSportsNews)}>Fetch Latest Sports News</button> {/* Button to fetch sports news */}
         <hr />
         <div className="news-container">
