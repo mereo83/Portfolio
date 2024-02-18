@@ -21,12 +21,12 @@ function App() {
         <Navbar className="Navbar" />
         <main className="MainContent">
           <Routes>
-            <Route path='/Home' element={<Home/>}/>
-            <Route path="/News" element={<News />} />
-            <Route path="/blog" element={<BlogSection />} />
-            <Route path="/portfolio" element={<PortfolioSection />} />
-            <Route path="/skills" element={<SkillsSection />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path='/Home' element={<Home></Home>}/>
+            <Route path="/News" element={<News></News>} />
+            <Route path="/blog" element={<BlogSection></BlogSection>} />
+            <Route path="/portfolio" element={<PortfolioSection></PortfolioSection>} />
+            <Route path="/skills" element={<SkillsSection></SkillsSection>} />
+            <Route path="/contact" element={<Contact></Contact>} />
           </Routes>
         </main>
                 <Footer className="Footer" />
