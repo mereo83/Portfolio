@@ -2,24 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
+const API_KEY = '3cc3b998ef6a41c9997a7b4976f782b1';
+
 function News() {
   const [news, setNews] = useState([]);
   const [sportsNews, setSportsNews] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchData = async (category, setState) => {
+  const fetchNews = async (category, setState) => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=3cc3b998ef6a41c9997a7b4976f782b1`
-      );
-
+      const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`);
       if (response.data.status === 'ok') {
         setState(response.data.articles);
         setError(null);
       } else {
-        setError(`Error fetching ${category} news: ` + response.data.message);
+        setError(`Error fetching ${category} news: ${response.data.message}`);
       }
     } catch (error) {
       console.error(`Error fetching ${category} news:`, error);
@@ -31,23 +30,19 @@ function News() {
 
   useEffect(() => {
     const fetchInitialData = async () => {
-      await fetchData('general', setNews);
-      await fetchData('sports', setSportsNews);
+      await fetchNews('general', setNews);
+      await fetchNews('sports', setSportsNews);
     };
 
     fetchInitialData();
 
     const timer = setInterval(() => {
-      fetchData('general', setNews);
-      fetchData('sports', setSportsNews);
+      fetchNews('general', setNews);
+      fetchNews('sports', setSportsNews);
     }, 120000);
 
     return () => clearInterval(timer);
   }, []);
-
-  const handleFetchData = async (category, setState) => {
-    await fetchData(category, setState);
-  };
 
   return (
     <div className="news-background">
@@ -55,7 +50,7 @@ function News() {
         <h2>General News</h2>
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        <button onClick={() => handleFetchData('general', setNews)}>Fetch Latest General News</button>
+        <button onClick={() => fetchNews('general', setNews)}>Fetch Latest General News</button>
         <hr />
         <div className="news-container">
           {news.map((article) => (
@@ -71,7 +66,7 @@ function News() {
         <h2>Sports News</h2>
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        <button onClick={() => handleFetchData('sports', setSportsNews)}>Fetch Latest Sports News</button>
+        <button onClick={() => fetchNews('sports', setSportsNews)}>Fetch Latest Sports News</button>
         <hr />
         <div className="news-container">
           {sportsNews.map((article) => (
