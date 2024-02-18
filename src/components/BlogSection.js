@@ -9,7 +9,7 @@ const BlogSection = () => {
 
   return (
     <section id="blog">
-      <h2>Latest Articles</h2>
+      <h2 className="text-white p-3">Latest Articles</h2>
 
       <div className="blog-post">
         <h3>Building Responsive Websites</h3>
