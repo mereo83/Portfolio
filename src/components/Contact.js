@@ -13,13 +13,40 @@ const ContactForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, file: e.target.files[0] });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here
+    
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('message', formData.message);
+      formDataToSend.append('file', formData.file);
+
+      const response = await fetch('/submit', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        console.log('Form submitted successfully');
+        // You can perform any actions here after successful form submission
+      } else {
+        console.error('Form submission failed');
+        // Handle errors or show an error message to the user
+      }
+    } catch (error) {
+      console.error('An error occurred during form submission:', error);
+      // Handle errors or show an error message to the user
+    }
   };
 
   return (
-    <section id="contact" className="mt-4 contact-section"> {/* Add contact-section class */}
+    <section id="contact" className="mt-4 contact-section"> {/* Added contact-section class */}
       <h2>Contact</h2>
       <p>If you'd like to get in touch, please use the contact form below:</p>
       <form onSubmit={handleSubmit}>
@@ -37,7 +64,7 @@ const ContactForm = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="file" className="form-label">Attach Documents (PDF, DOCX, etc.):</label>
-          <input type="file" className="form-control" id="file" name="file" onChange={(e) => setFormData({ ...formData, file: e.target.files[0] })} />
+          <input type="file" className="form-control" id="file" name="file" onChange={handleFileChange} />
         </div>
         <button type="submit" className="btn btn-primary">Send</button>
       </form>
