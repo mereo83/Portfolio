@@ -3,7 +3,7 @@ import React from 'react';
 const Carousel = () => {
   const images = [
     'person-front-computer-working-html.jpg',
-    'person-front-computer-working-html.jpg',
+    'pexels-antonio-batinić-4164418.jpg',
     'clement-helardot-95YRwf6CNw8-unsplash.jpg'
   ];
 
