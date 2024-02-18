@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
+const API_URL = 'https://newsapi.org/v2/top-headlines';
 const API_KEY = '3cc3b998ef6a41c9997a7b4976f782b1';
+const COUNTRY_CODE = 'us';
 
 function News() {
   const [news, setNews] = useState([]);
@@ -13,7 +15,7 @@ function News() {
   const fetchNews = async (category, setState) => {
     setLoading(true);
     try {
-      const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`);
+      const response = await axios.get(`${API_URL}?country=${COUNTRY_CODE}&category=${category}&apiKey=${API_KEY}`);
       if (response.data.status === 'ok') {
         setState(response.data.articles);
         setError(null);
@@ -21,7 +23,6 @@ function News() {
         setError(`Error fetching ${category} news: ${response.data.message}`);
       }
     } catch (error) {
-      console.error(`Error fetching ${category} news:`, error);
       setError(`Error fetching ${category} news. Please try again later.`);
     } finally {
       setLoading(false);

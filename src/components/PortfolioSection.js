@@ -12,6 +12,7 @@ const PortfolioSection = () => {
           <a
             href="https://portfolio-rho-lyart-62.vercel.app/"
             target="_blank"
+            rel="noreferrer"
           >
             Portfolio
           </a>
@@ -24,7 +25,11 @@ const PortfolioSection = () => {
           Created a 3 page Resto website with a user-friendly interface using
           HTML, CSS, JavaScript, and Bootstrap for the front-end and for back-end
           using Express js and Node js{' '}
-          <a href="https://mereo83.github.io/Resto/" target="_blank">
+          <a
+            href="https://mereo83.github.io/Resto/"
+            target="_blank"
+            rel="noreferrer"
+          >
             RESTO
           </a>
         </p>
@@ -35,7 +40,11 @@ const PortfolioSection = () => {
         <p>
           Designed a Back-End for a classified app using Express js and Node js,
           for database I used MYSQL.{' '}
-          <a href="https://github.com/mereo83/Classified-Page.git" target="_blank">
+          <a
+            href="https://github.com/mereo83/Classified-Page.git"
+            target="_blank"
+            rel="noreferrer"
+          >
             Glassified-Page
           </a>
         </p>
