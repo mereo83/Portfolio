@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
-const API_URL = "https://api.football-data.org/v2";
-const API_KEY = "42f53f781b4c44a4ada03d1d30391334";
+const API_URL = "https://api.football-data.org/v4/matches";
+const API_KEY = "42f53f781b4c44a4ada03d1d30391334"; // API Key
 
 function Football() {
   const [matches, setMatches] = useState([]);
@@ -16,13 +15,15 @@ function Football() {
       const response = await axios.get(`${API_URL}/matches`, {
         headers: { "X-Auth-Token": API_KEY }
       });
+      console.log("Response:", response);
       if (response.data.matches) {
         setMatches(response.data.matches);
         setError(null);
       } else {
-        setError("Error fetching football matches");
+        setError("Error fetching football matches: Data not found");
       }
     } catch (error) {
+      console.error("Error fetching football matches:", error);
       setError("Error fetching football matches. Please try again later.");
     } finally {
       setLoading(false);
@@ -49,7 +50,7 @@ function Football() {
         <hr />
         <div className="matches-container">
           {matches.map((match) => (
-            <div key={uuidv4()} className="match-item">
+            <div key={match.id} className="match-item">
               <h3>{match.homeTeam.name} vs {match.awayTeam.name}</h3>
               <p>{match.competition.name}</p>
               <p>{match.utcDate}</p>
