@@ -5,7 +5,8 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link className="navbar-brand" to="/Home">Home</Link> {/* Corrected path to Home */}
+        {/* Corrected path to Home */}
+        <Link className="navbar-brand" to="/home">Home</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -24,6 +25,7 @@ function Navbar() {
             <li className="nav-item"><Link className="nav-link" to="/skills">Skills</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/news">News</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/football">Football</Link></li>
           </ul>
         </div>
       </div>

@@ -11,6 +11,7 @@ import SkillsSection from './components/SkillsSection';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import News from './components/News';
+import Football from './components/Football';
 import Home from './components/Home';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path='/Home' element={<Home></Home>}/>
             <Route path="/News" element={<News></News>} />
+            <Route path="/Football" element={<Football></Football>} />
             <Route path="/blog" element={<BlogSection></BlogSection>} />
             <Route path="/portfolio" element={<PortfolioSection></PortfolioSection>} />
             <Route path="/skills" element={<SkillsSection></SkillsSection>} />
