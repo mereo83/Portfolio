@@ -27,7 +27,7 @@ const ContactForm = () => {
       formDataToSend.append('message', formData.message);
       formDataToSend.append('file', formData.file);
 
-      const response = await fetch('/submit', {
+      const response = await fetch('http://localhost:5000/submit', {
         method: 'POST',
         body: formDataToSend,
       });
