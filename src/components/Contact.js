@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-const ContactForm = () => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
     file: null
   });
+  const [notification, setNotification] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +20,14 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    // Check if any required fields are empty
+    if (!formData.name || !formData.email || !formData.message) {
+      setNotification('Please fill out all required fields');
+      return;
+    }
+
+    // Continue with form submission
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
@@ -33,20 +41,27 @@ const ContactForm = () => {
       });
 
       if (response.ok) {
-        console.log('Form submitted successfully');
-        // You can perform any actions here after successful form submission
+        setNotification('Form submitted successfully');
+        // Clear form data after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+          file: null
+        });
       } else {
-        console.error('Form submission failed');
+        setNotification('Form submission failed');
         // Handle errors or show an error message to the user
       }
     } catch (error) {
+      setNotification('An error occurred during form submission');
       console.error('An error occurred during form submission:', error);
       // Handle errors or show an error message to the user
     }
   };
 
   return (
-    <section id="contact" className="mt-4 contact-section"> {/* Added contact-section class */}
+    <section id="contact" className="mt-4 contact-section">
       <h2>Contact</h2>
       <p>If you'd like to get in touch, please use the contact form below:</p>
       <form onSubmit={handleSubmit}>
@@ -68,8 +83,9 @@ const ContactForm = () => {
         </div>
         <button type="submit" className="btn btn-primary">Send</button>
       </form>
+      {notification && <div className="mt-3">{notification}</div>}
     </section>
   );
 }
 
-export default ContactForm;
+export default Contact;

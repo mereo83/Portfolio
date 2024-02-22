@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = "https://api.football-data.org/v4/matches";
-const API_KEY = "42f53f781b4c44a4ada03d1d30391334"; // API Key
+const API_URL = "https://api.football-data.org/v4";
+const API_KEY = "42f53f781b4c44a4ada03d1d30391334"; // Replace with your actual API key
 
 function Football() {
   const [matches, setMatches] = useState([]);
