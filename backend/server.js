@@ -1,31 +1,48 @@
+// server.js
 const express = require('express');
-const mysql = require('mysql2/promise');
+const multer = require('multer');
+const db = require('./data/db'); // Import the connection pool from db.js
 
 const app = express();
-const port = 5000; // You can change the port if needed
+const port = 5000;
 
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'Blessme@12',
-  database: 'school_management',
+// Set NODE_ENV to 'development' if not already set
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+// Set up multer for handling file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Set the destination folder for uploaded files
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
 });
+const upload = multer({ storage: storage });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.post('/submit', async (req, res) => {
+// Define route for handling form submissions
+app.post('/submit', upload.single('file'), async (req, res) => {
   try {
     const { name, email, message } = req.body;
+    const filePath = req.file ? req.file.path : null;
 
-    const connection = await pool.getConnection();
-    await connection.query('INSERT INTO contact_table (name, email, message) VALUES (?, ?, ?)', [name, email, message]);
-    connection.release();
+    // Use the connection pool to execute the query
+    await db.executeQuery('INSERT INTO contact_form (name, email, message, file_path) VALUES (?, ?, ?, ?)', [name, email, message, filePath]);
 
     res.status(200).send('Message sent successfully and data saved in the database.');
   } catch (error) {
     console.error('Error handling form submission:', error);
     res.status(500).send('An error occurred. Please try again later.');
   }
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('An error occurred:', err);
+  res.status(500).send('Something went wrong on the server.');
 });
 
 app.listen(port, () => {
